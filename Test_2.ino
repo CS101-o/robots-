@@ -37,7 +37,7 @@ void right(){
   analogWrite(Motor_left_PWM,Left_reverse_speed); // left 
   digitalWrite(Motor_left_direction,Reverse); //left
 
-  if (right_dir >= 90.0) {
+  /*if (right_dir >= 90.0) {
     Stop();
     direction++;
   }
@@ -46,7 +46,8 @@ void right(){
     }
     else {
       direction++;
-  }
+  }*/
+  Direction_calc();
 }
 
 void left(){
@@ -55,14 +56,15 @@ void left(){
   analogWrite(Motor_right_PWM,Right_reverse_speed);
   digitalWrite(Motor_right_direction,Reverse);
 
-  if (left_dir >= 90.0) {
+  /*if (left_dir >= 90.0) {
     Stop();
     left_dir = 0;
     direction--;
   }
   if (direction <= 0) {
       direction = 3;
-    }
+    }*/
+  Direction_calc();
 }
 
 void reverse() {
@@ -108,6 +110,24 @@ void Distance_readings() {
 void Direction_calc() {                      
   left_dir = (Left_counter*360.0)/250.0;
   right_dir = (Right_counter*360.0)/250.0;
+
+  if (right_dir >= 90.0) {
+    Stop();
+    direction++;
+  }
+
+  if (left_dir >= 90.0) {
+    Stop();
+    left_dir = 0;
+    direction--;
+  }
+
+  if (direction >= 3) {
+      direction = 0;
+    }
+  else if (direction <= 0) {
+    direction = 3;
+  }
 }
 
 void Direction_readings() { 

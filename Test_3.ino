@@ -15,15 +15,28 @@ int Right_reverse_speed=255;
 int direction = 0;
 float right_dir = 0;
 float left_dir = 0;
+float distance;
 
 long int Left_counter, Right_counter;
 
+void Distance_readings() {
+  float leftDistance = (2 * PI * 0.15 * Left_counter) / 250.0;
+  float rightDistance = (2 * PI * 0.15 * Right_counter) / 250.0;
+  distance = (leftDistance + rightDistance)/2.0;
+
+
+  Serial.print("Distance traveled: \n");
+  Serial.print(distance);
+}
 void forward() {
   analogWrite(Motor_right_PWM,Right_forward_speed); // right motor
   digitalWrite(Motor_right_direction,Forward); //right
   analogWrite(Motor_left_PWM,Left_forward_speed); // left 
   digitalWrite(Motor_left_direction,Forward); //left
   delay(1000);
+ 
+  
+
 }
 
 void Stop(){ // set speeds to 0
@@ -42,7 +55,7 @@ void left(){
   digitalWrite(Motor_right_direction,Forward);
   analogWrite(Motor_left_PWM,Left_reverse_speed); // left 
   digitalWrite(Motor_left_direction,Reverse); //left
-  delay(470);
+  delay(485);
 
 }
 
@@ -54,7 +67,7 @@ void right(){
   digitalWrite(Motor_left_direction,Forward); //left
   analogWrite(Motor_right_PWM,Right_reverse_speed);
   digitalWrite(Motor_right_direction,Reverse);
-  delay(470);
+  delay(485);
 
 }
 
@@ -66,7 +79,7 @@ void reverse() {
   digitalWrite(Motor_right_direction,Forward);
   analogWrite(Motor_left_PWM,Left_reverse_speed); // left 
   digitalWrite(Motor_left_direction,Reverse); //left
-  delay(940);
+  delay(470);
 }
   
 
@@ -78,15 +91,7 @@ void Right_int_counter(){
   Right_counter++;
 }
 
-void Distance_readings() {
-  float leftDistance = (2 * PI * 0.15 * Left_counter) / 250.0;
-  float rightDistance = (2 * PI * 0.15 * Right_counter) / 250.0;
-  float distance = (leftDistance + rightDistance)/2.0;
 
-
-  Serial.print("Distance traveled: \n");
-  Serial.print(distance);
-}
 
 /*void Direction_calc() {                      
   left_dir = (Left_counter*360.0)/250.0;

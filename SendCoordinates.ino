@@ -15,7 +15,7 @@ void setup() {
 
 void loop() {
   // Define an integer array
-  int data[2] = {1, 2};
+  int data[4] = {1,2,3,4};
 
   // Send the integer array
   radio.write(&data, sizeof(data));

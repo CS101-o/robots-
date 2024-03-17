@@ -123,7 +123,7 @@ void setNeighbourWall(Position pos) {
 
 
 //Send commands on where the robot should move
-void sendCommand(Robot robot, Position nextPos)
+void sendCommand(Robot &robot, Position nextPos)
 {
   //Send commands of next position
    // Define an integer array
@@ -133,6 +133,8 @@ void sendCommand(Robot robot, Position nextPos)
   radio.write(&data, sizeof(data));
 
   delay(100);
+
+  robot.pos = nextPos;
 
   //Set as visited
   if(robot.pos == robotOne.pos) grid[robot.pos.y][robot.pos.x].visited = 1;
@@ -245,6 +247,7 @@ void checkCurrentPositions()
 void setup() {
 
   Serial.begin(9600);
+
   radio.begin();
   radio.openReadingPipe(0, address);
   radio.setPALevel(RF24_PA_MIN);
@@ -269,15 +272,12 @@ void loop() {
     checkCurrentPositions();
 
     // Check For neighbourings for walls and update map
-    checkNeighbours(robotOne.pos);
-    checkNeighbours(robotTwo.pos);
+    //checkNeighbours(robotOne.pos);
+    //checkNeighbours(robotTwo.pos);
 
     // Decide and send next command to robots on where to move
     sendCommand(robotOne, GetNextPosition(robotOne));
-    robotOne.pos = GetNextPosition(robotOne);
-
     sendCommand(robotTwo, GetNextPosition(robotTwo));
-    robotTwo.pos = GetNextPosition(robotTwo);
 
     // Add a short delay to wait for robots to move
     delay(1000);

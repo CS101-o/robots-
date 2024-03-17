@@ -99,7 +99,7 @@ void Obstacle_avoidance(int orientation) {
 
 void Receive_Coordinates(){
   if(radio.available()) {
-    int coord[2];
+    int coord[4];
     radio.read(&coord, sizeof(coord));
     for(int i=0; i<sizeof(coord) / sizeof(coord[0]); i++){
       Serial.print(coord[i]);

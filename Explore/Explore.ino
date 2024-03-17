@@ -54,31 +54,6 @@ void initializeGrid() {
     for (int y = 0; y < GRID_SIZE; y++) {
         for (int x = 0; x < GRID_SIZE; x++) {
             grid[y][x].visited = 0;
-            Position pos;
-
-            if(y == 4 && x == 0)
-            {
-              grid[y][x].eastWall = true;
-              pos.x = x;
-              pos.y = y;
-              setNeighbourWall(pos);
-            }
-
-            if(y == 3 && x == 1)
-            {
-              grid[y][x].southWall = true;
-              pos.x = x;
-              pos.y = y;
-              setNeighbourWall(pos);
-            }
-
-            if(y == 2 && x == 2)
-            {
-              grid[y][x].southWall = true;
-              pos.x = y;
-              pos.y = x;
-              setNeighbourWall(pos);
-            }
         }
     }
 }
